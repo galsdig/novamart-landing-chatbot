@@ -99,6 +99,12 @@ El chatbot valida el pedido, pide confirmación y solo cancela si el usuario con
 
 ## Conclusión del equipo
 
-> En este proyecto aprendimos cómo integrar un modelo de lenguaje grande (LLM) en una aplicación web local mediante **NVIDIA NIM** (NVIDIA Inference Microservices). Por lo que, comprendimos que NVIDIA NIM, puede facilitar el despliegue de modelos de inteligencia artificial por medio de contenedores y microservicios optimizados, permitiendo realizar peticiones de inferencia de manera rápida y eficiente a través de una API REST. Asi que, conectamos la interfaz gráfica local mediante un cliente HTTP en el backend, enviando el historial de conversación en cada petición para mantener el contexto del diálogo sin depender del estado interno del modelo.
- 
-> Sin embargo, entre las principales dificultades que pudimos encontrar estuvieron la configuración inicial de la clave de API y la variable de entorno para conectar con los endpoints de NVIDIA, la estructuración correcta del payload en formato JSON enviado al servidor, el manejo asíncrono de las respuestas en el navegador para garantizar una experiencia fluida de usuario, y la sincronización entre el estado de las conversaciones y la actualización dinámica de la interfaz de usuario.
+## Conclusión del equipo
+
+En este proyecto aprendimos cómo integrar un modelo de lenguaje (LLM) en una aplicación web local usando la API de NVIDIA. Nuestro backend en FastAPI recibe el mensaje desde el widget, lo envía a la API de NVIDIA NIM junto con el prompt de sistema y las funciones disponibles, y el modelo Nemotron redacta la respuesta final. Por lo que, usamos el servicio alojado de NVIDIA mediante una API Key, por lo que no desplegamos ningún contenedor propio.
+
+También entendimos que el LLM y la aplicación local cumplen funciones distintas. El LLM interpreta el lenguaje del usuario y redacta las respuestas, mientras que la aplicación guarda los datos de los pedidos y aplica las reglas. Para limitar el comportamiento del chatbot, llegamos a combinar un prompt de sistema con funciones simuladas (consultar, rastrear, validar y cancelar) y una validación en el código: un pedido solo se cancela si antes se validó y el usuario lo confirmo; como el modelo no recuerda la conversación por sí solo, el navegador reenvía el historial en cada petición.
+
+Sin embargo, entre las dificultades que encontramos estuvieron la configuración de la API Key en el archivo `.env` sin exponerla en GitHub, activar el entorno virtual para que el servidor encendiera, y diferenciar el entorno de Linux (Ubuntu en WSL) del sistema de archivos de Windows. También notamos que los pedidos simulados conservan su estado mientras el servidor sigue encendido, por lo que había que reiniciarlo para repetir las pruebas de cancelación, y que el modelo a veces devolvía formato Markdown, lo que corregimos ajustando el prompt de sistema.
+
+Como resultado, el chatbot responde correctamente sobre estatus, rastreo y cancelación, pide el número de pedido cuando falta y redirige las preguntas aleatorias, que no tienen que ver con el tema con la frase definida en la actividad.
