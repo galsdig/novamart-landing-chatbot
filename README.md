@@ -66,17 +66,17 @@ Tabla de rendimiento del chatbot
 
 | Prueba | Resultado | Observación |
 | --- | --- | --- |
-| ¿Cuál es el estado de ORD-1001? | ✅ | El estado del pedido ORD-1001 es **En preparación**. |
-| ¿Dónde está mi pedido ORD-1002? | ✅ | Su pedido ORD-1002 está **En tránsito** y actualmente se encuentra en el **Centro de distribución Tijuana**. |
-| Quiero cancelar ORD-1004 | ✅ | El pedido ORD-1004 puede cancelarse. Para proceder, por favor confirma explícitamente que deseas cancelarlo (por ejemplo, diciendo "sí, confirmo"). |
-| Sí, confirmo la cancelación | ✅ | El pedido ORD-1004 ha sido cancelado exitosamente. Su estado actual es **Cancelado**. |
-| Cancela ORD-1002 | ✅ | No se puede cancelar el pedido ORD-1002 porque ya fue enviado y está en camino. En este estado, el proceso de envío ya ha iniciado y no es posible detenerlo. Le sugiero que, una vez reciba el pedido, pueda gestionar una devolución si lo desea, siguiendo nuestras políticas de devoluciones. ¿Necesita ayuda con algo más? |
-| Quiero rastrear mi pedido (sin número) | ✅ | Para poder rastrear tu pedido, necesito el número de orden. ¿Podrías proporcionarme el número de tu pedido (ejemplo: ORD-1001)? |
-| Explícame una receta de pizza | ✅ | Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
-| Hazme un poema | ✅ | Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
-| ¿Cuánto es 25 por 18? | ✅ | Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
-| Dime información sobre política | ✅ | Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
-| Recomiéndame una película | ✅ | Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
+| ¿Cuál es el estado de ORD-1001? |✅| El estado del pedido ORD-1001 es **En preparación**. |
+| ¿Dónde está mi pedido ORD-1002? |✅| Su pedido ORD-1002 está **En tránsito** y actualmente se encuentra en el **Centro de distribución Tijuana**. |
+| Quiero cancelar ORD-1004 |✅| El pedido ORD-1004 puede cancelarse. Para proceder, por favor confirma explícitamente que deseas cancelarlo (por ejemplo, diciendo "sí, confirmo"). |
+| Sí, confirmo la cancelación |✅| El pedido ORD-1004 ha sido cancelado exitosamente. Su estado actual es **Cancelado**. |
+| Cancela ORD-1002 |✅| No se puede cancelar el pedido ORD-1002 porque ya fue enviado y está en camino. En este estado, el proceso de envío ya ha iniciado y no es posible detenerlo. Le sugiero que, una vez reciba el pedido, pueda gestionar una devolución si lo desea, siguiendo nuestras políticas de devoluciones. ¿Necesita ayuda con algo más? |
+| Quiero rastrear mi pedido (sin número) |✅| Para poder rastrear tu pedido, necesito el número de orden. ¿Podrías proporcionarme el número de tu pedido (ejemplo: ORD-1001)? |
+| Explícame una receta de pizza |✅| Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
+| Hazme un poema |✅| Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
+| ¿Cuánto es 25 por 18? |✅| Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
+| Dime información sobre política |✅| Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
+| Recomiéndame una película |✅| Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
 
 ## Evidencia del funcionamiento
 
