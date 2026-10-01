@@ -1,0 +1,493 @@
+/* 1. Variables */
+
+:root {
+
+  /* Colores */
+
+  --color-bg: #f7f7f5;
+  --color-text: #16232b;
+  --color-muted: #5b6a72;
+  --color-border: #d8d8d4;
+  --color-primary: #2445d8;
+  --color-success: #1f8a5b;
+  --color-warning: #c98a0b;
+  --color-danger: #b3402f;
+
+  --color-white: #ffffff;
+  --color-message: #eeeeec;
+
+
+  /* Tipografía */
+
+  --font-body: "Instrument Sans", system-ui, sans-serif;
+  --font-heading: "Calibri", system-ui, sans-serif;
+  --font-logo: "Roboto", system-ui, sans-serif;
+
+
+  /* Espaciado */
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+
+
+  /* Bordes */
+
+  --radius-pill: 999px;
+  --radius-md: 14px;
+  --radius-lg: 16px;
+
+
+  /* Sombras */
+
+  --shadow-chat: 0 12px 40px rgba(22, 35, 43, 0.18);
+}
+
+
+/* 2. Reset */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+
+  background: var(--color-bg);
+  color: var(--color-text);
+
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+h1,
+h2 {
+  font-family: var(--font-heading);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+
+/* 3. Header */
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  padding: var(--space-5) clamp(20px, 6vw, 72px);
+
+  border-bottom: 1px solid var(--color-border);
+}
+
+.logo {
+  margin: 0;
+
+  color: var(--color-primary);
+
+  font-family: var(--font-logo);
+  font-size: 1.4rem;
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+.tag {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+
+/* 4. Main */
+
+main {
+  max-width: 980px;
+
+  padding: 0 clamp(20px, 6vw, 72px) 120px;
+}
+
+.hero {
+  padding: 72px 0 40px;
+}
+
+.hero h1 {
+  max-width: 18ch; /* Aumentado de 12ch a 18ch para permitir 2 renglones */
+
+  margin: 0 0 18px;
+
+  font-size: clamp(2.4rem, 7vw, 4.6rem);
+  font-weight: 800;
+  line-height: 1.1; /* Ligeramente más holgado si se divide en 2 líneas */
+  letter-spacing: -0.03em;
+}
+
+.hero p {
+  max-width: 52ch;
+
+  margin: 0;
+
+  color: var(--color-muted);
+  font-size: 1.1rem;
+}
+
+
+/* 5. Pedidos */
+
+.pedidos h2 {
+  margin: 24px 0 12px;
+
+  font-size: 1.5rem;
+}
+
+#lista-pedidos {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+
+  border-top: 1px solid var(--color-border);
+}
+
+#lista-pedidos li {
+  display: grid;
+
+  grid-template-columns: 110px 1fr auto;
+
+  align-items: center;
+
+  gap: var(--space-2) var(--space-5);
+
+  padding: 18px 0;
+
+  border-bottom: 1px solid var(--color-border);
+}
+
+.id {
+  font-weight: 600;
+}
+
+.ubi {
+  color: var(--color-muted);
+  font-size: 0.92rem;
+}
+
+.estado {
+  padding: 4px 12px;
+
+  border: 1.5px solid currentColor;
+  border-radius: var(--radius-pill);
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+
+/* Estados */
+
+.e-prep {
+  color: var(--color-primary);
+}
+
+.e-transito {
+  color: var(--color-warning);
+}
+
+.e-entregado {
+  color: var(--color-success);
+}
+
+.e-pago {
+  color: var(--color-muted);
+}
+
+.e-cancelado {
+  color: var(--color-danger);
+}
+
+
+/* 6. Chat button */
+
+#chat-btn {
+  position: fixed;
+
+  right: 24px;
+  bottom: 24px;
+
+  padding: 14px 22px;
+
+  border: 0;
+  border-radius: var(--radius-pill);
+
+  background: var(--color-primary);
+  color: var(--color-white);
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 150ms ease,
+    filter 150ms ease;
+}
+
+#chat-btn:hover {
+  filter: brightness(0.92);
+}
+
+#chat-btn:active {
+  transform: scale(0.97);
+}
+
+
+/* 7. Chat */
+
+#chat {
+  position: fixed;
+
+  right: 24px;
+  bottom: 24px;
+
+  display: flex;
+  flex-direction: column;
+
+  width: min(380px, calc(100vw - 32px));
+  height: min(560px, calc(100vh - 48px));
+
+  overflow: hidden;
+
+  background: var(--color-white);
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-chat);
+}
+
+#chat[hidden] {
+  display: none;
+}
+
+
+/* 8. Chat header */
+
+.chat-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 14px 16px;
+
+  background: var(--color-text);
+  color: var(--color-white);
+}
+
+.chat-head button {
+  border: 0;
+
+  background: transparent;
+  color: inherit;
+
+  font-size: 1.1rem;
+
+  cursor: pointer;
+}
+
+
+/* 9. Mensajes */
+
+#msgs {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  gap: 10px;
+
+  overflow-y: auto;
+
+  padding: 16px;
+}
+
+.m {
+  max-width: 85%;
+
+  padding: 10px 14px;
+
+  border-radius: var(--radius-md);
+
+  font-size: 0.95rem;
+
+  white-space: pre-wrap;
+}
+
+.m.bot {
+  align-self: flex-start;
+
+  background: var(--color-message);
+
+  border-bottom-left-radius: 4px;
+}
+
+.m.yo {
+  align-self: flex-end;
+
+  background: var(--color-primary);
+  color: var(--color-white);
+
+  border-bottom-right-radius: 4px;
+}
+
+
+/* 10. Sugerencias */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+  padding: 0 16px 8px;
+}
+
+.chips button {
+  padding: 5px 12px;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+
+  background: var(--color-white);
+
+  font-size: 0.82rem;
+
+  cursor: pointer;
+
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.chips button:hover {
+  background: var(--color-bg);
+  border-color: var(--color-muted);
+}
+
+
+/* 11. Chat form */
+
+#chat-form {
+  display: flex;
+
+  gap: 8px;
+
+  padding: 12px;
+
+  border-top: 1px solid var(--color-border);
+}
+
+#chat-in {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 10px 14px;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+
+  background: var(--color-white);
+}
+
+#chat-form button {
+  padding: 0 18px;
+
+  border: 0;
+  border-radius: var(--radius-pill);
+
+  background: var(--color-text);
+  color: var(--color-white);
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 150ms ease,
+    filter 150ms ease;
+}
+
+#chat-form button:hover {
+  filter: brightness(1.15);
+}
+
+#chat-form button:active {
+  transform: scale(0.97);
+}
+
+
+/* 12. Accesibilidad */
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+
+/* 13. Responsive */
+
+@media (max-width: 560px) {
+
+  #lista-pedidos li {
+    grid-template-columns: 1fr auto;
+  }
+
+  .ubi {
+    grid-column: 1 / -1;
+  }
+
+  .hero {
+    padding-top: 48px;
+  }
+
+  #chat-btn {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  #chat {
+    right: 16px;
+    bottom: 16px;
+  }
+}
+
+
+/* 14. Reduccion de movimiento */
+
+@media (prefers-reduced-motion: reduce) {
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

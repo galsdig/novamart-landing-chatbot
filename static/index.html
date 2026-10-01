@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NovaMart · Seguimiento de pedidos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link
+  href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
+  rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <span class="logo">NovaMart</span>
+    <span class="tag">Soporte</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Seguimiento de pedidos NovaMart.</h1>
+      <p>Revisa dónde está, cuándo llega o cancélalo. Pregúntale al asistente o mira tus pedidos aquí abajo.</p>
+    </section>
+
+    <section class="pedidos" aria-labelledby="t-ped">
+      <h2 id="t-ped">Mis pedidos</h2>
+      <ul id="lista-pedidos"><li class="vacio">Cargando pedidos…</li></ul>
+    </section>
+  </main>
+
+  <!-- Widget del chatbot -->
+  <button id="chat-btn" aria-expanded="false" aria-controls="chat">Preguntar por mi pedido</button>
+  <section id="chat" hidden aria-label="Asistente de pedidos">
+    <div class="chat-head"><strong>Asistente NovaMart</strong><button id="chat-x" aria-label="Cerrar">✕</button></div>
+    <div id="msgs" aria-live="polite"></div>
+    <div class="chips" id="chips"></div>
+    <form id="chat-form">
+      <input id="chat-in" placeholder="Escribe tu pregunta…" autocomplete="off" required>
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
