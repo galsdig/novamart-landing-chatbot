@@ -62,26 +62,43 @@ Abre `http://localhost:8000`.
 
 ## Pruebas realizadas
 
-> **COMPLETAR:** pon el resultado real de cada prueba (✅ o ❌) y una frase de lo que respondió el chatbot.
+Tabla de rendimiento del chatbot
 
 | Prueba | Resultado | Observación |
 | --- | --- | --- |
-| ¿Cuál es el estado de ORD-1001? | | |
-| ¿Dónde está mi pedido ORD-1002? | | |
-| Quiero cancelar ORD-1004 | | |
-| Sí, confirmo la cancelación | | |
-| Cancela ORD-1002 | | |
-| Quiero rastrear mi pedido (sin número) | | |
-| Explícame una receta de pizza | | |
-| Hazme un poema | | |
-| ¿Cuánto es 25 por 18? | | |
-| Dime información sobre política | | |
-| Recomiéndame una película | | |
+| ¿Cuál es el estado de ORD-1001? | ✅ | El estado del pedido ORD-1001 es **En preparación**. |
+| ¿Dónde está mi pedido ORD-1002? | ✅ | Su pedido ORD-1002 está **En tránsito** y actualmente se encuentra en el **Centro de distribución Tijuana**. |
+| Quiero cancelar ORD-1004 | ✅ | El pedido ORD-1004 puede cancelarse. Para proceder, por favor confirma explícitamente que deseas cancelarlo (por ejemplo, diciendo "sí, confirmo"). |
+| Sí, confirmo la cancelación | ✅ | El pedido ORD-1004 ha sido cancelado exitosamente. Su estado actual es **Cancelado**. |
+| Cancela ORD-1002 | ✅ | No se puede cancelar el pedido ORD-1002 porque ya fue enviado y está en camino. En este estado, el proceso de envío ya ha iniciado y no es posible detenerlo. Le sugiero que, una vez reciba el pedido, pueda gestionar una devolución si lo desea, siguiendo nuestras políticas de devoluciones. ¿Necesita ayuda con algo más? |
+| Quiero rastrear mi pedido (sin número) | ✅ | Para poder rastrear tu pedido, necesito el número de orden. ¿Podrías proporcionarme el número de tu pedido (ejemplo: ORD-1001)? |
+| Explícame una receta de pizza | ✅ | Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
+| Hazme un poema | ✅ | Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
+| ¿Cuánto es 25 por 18? | ✅ | Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
+| Dime información sobre política | ✅ | Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
+| Recomiéndame una película | ✅ | Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
 
 ## Evidencia del funcionamiento
 
-> **COMPLETAR:** agrega aquí las capturas (carpeta `docs/`) y enlázalas, por ejemplo: `![Estado de pedido](docs/captura-estado.png)`
+### Estado de pedido
+![Consulta del estado de ORD-1001](docs/captura-estado.png)
+
+### Rastreo
+![Rastreo de ORD-1002](docs/captura-rastreo.png)
+
+### Cancelación
+El chatbot valida el pedido, pide confirmación y solo cancela si el usuario confirma.
+
+![El chatbot pide confirmación para cancelar ORD-1004](docs/captura-cancelacion-confirmacion.png)
+
+![ORD-1004 cancelado y la lista actualizada](docs/captura-cancelacion-hecha.png)
+
+### Preguntas fuera de tema
+![El chatbot redirige una pregunta fuera de tema](docs/captura-fuera-de-tema.png)
+
 
 ## Conclusión del equipo
 
-> **COMPLETAR:** escribe con tus palabras qué aprendieron sobre cómo se conecta una app local con un LLM mediante NVIDIA NIM, y qué dificultades encontraron.
+> En este proyecto aprendimos cómo integrar un modelo de lenguaje grande (LLM) en una aplicación web local mediante **NVIDIA NIM** (NVIDIA Inference Microservices). Por lo que, comprendimos que NVIDIA NIM, puede facilitar el despliegue de modelos de inteligencia artificial por medio de contenedores y microservicios optimizados, permitiendo realizar peticiones de inferencia de manera rápida y eficiente a través de una API REST. Asi que, conectamos la interfaz gráfica local mediante un cliente HTTP en el backend, enviando el historial de conversación en cada petición para mantener el contexto del diálogo sin depender del estado interno del modelo.
+ 
+> Sin embargo, entre las principales dificultades que pudimos encontrar estuvieron la configuración inicial de la clave de API y la variable de entorno para conectar con los endpoints de NVIDIA, la estructuración correcta del payload en formato JSON enviado al servidor, el manejo asíncrono de las respuestas en el navegador para garantizar una experiencia fluida de usuario, y la sincronización entre el estado de las conversaciones y la actualización dinámica de la interfaz de usuario.
