@@ -1,6 +1,6 @@
 # NovaMart: landing page y chatbot con NVIDIA NIM
 
-**Equipo 2:** Mario, José Miguel, Yassir y Diego
+**Autor:** Diego Galicia Salgado (asignado al Equipo 2; desarrollo e implementación individual)
 **Curso:** I Bootcamp Skala (IA) · Presentación: 30 de septiembre de 2026
 
 ## Objetivo
@@ -97,14 +97,12 @@ El chatbot valida el pedido, pide confirmación y solo cancela si el usuario con
 ![El chatbot redirige una pregunta fuera de tema](docs/captura-fuera-de-tema.png)
 
 
-## Conclusión del equipo
+## Conclusión
 
-## Conclusión del equipo
+En este proyecto aprendí a integrar un modelo de lenguaje (LLM) en una aplicación web local usando la API de NVIDIA. Mi backend en FastAPI recibe el mensaje desde el widget, lo envía a la API de NVIDIA NIM junto con el prompt de sistema y las funciones disponibles, y el modelo Nemotron redacta la respuesta final. Usé el servicio alojado de NVIDIA mediante una API Key, por lo que no desplegué ningún contenedor propio.
 
-En este proyecto aprendimos cómo integrar un modelo de lenguaje (LLM) en una aplicación web local usando la API de NVIDIA. Nuestro backend en FastAPI recibe el mensaje desde el widget, lo envía a la API de NVIDIA NIM junto con el prompt de sistema y las funciones disponibles, y el modelo Nemotron redacta la respuesta final. Por lo que, usamos el servicio alojado de NVIDIA mediante una API Key, por lo que no desplegamos ningún contenedor propio.
+También entendí que el LLM y la aplicación local cumplen funciones distintas. El LLM interpreta el lenguaje del usuario y redacta las respuestas, mientras que la aplicación guarda los datos de los pedidos y aplica las reglas. Para limitar el comportamiento del chatbot combiné un prompt de sistema con funciones simuladas (consultar, rastrear, validar y cancelar) y una validación en el código: un pedido solo se cancela si antes se validó y el usuario lo confirmó. Como el modelo no recuerda la conversación por sí solo, el navegador reenvía el historial en cada petición.
 
-También entendimos que el LLM y la aplicación local cumplen funciones distintas. El LLM interpreta el lenguaje del usuario y redacta las respuestas, mientras que la aplicación guarda los datos de los pedidos y aplica las reglas. Para limitar el comportamiento del chatbot, llegamos a combinar un prompt de sistema con funciones simuladas (consultar, rastrear, validar y cancelar) y una validación en el código: un pedido solo se cancela si antes se validó y el usuario lo confirmo; como el modelo no recuerda la conversación por sí solo, el navegador reenvía el historial en cada petición.
+Entre las dificultades que encontré estuvieron la configuración de la API Key en el archivo `.env` sin exponerla en GitHub, activar el entorno virtual para que el servidor encendiera y diferenciar el entorno de Linux (Ubuntu en WSL) del sistema de archivos de Windows. También noté que los pedidos simulados conservan su estado mientras el servidor sigue encendido, por lo que tenía que reiniciarlo para repetir las pruebas de cancelación, y que el modelo a veces devolvía formato Markdown, lo cual corregí ajustando el prompt de sistema.
 
-Sin embargo, entre las dificultades que encontramos estuvieron la configuración de la API Key en el archivo `.env` sin exponerla en GitHub, activar el entorno virtual para que el servidor encendiera, y diferenciar el entorno de Linux (Ubuntu en WSL) del sistema de archivos de Windows. También notamos que los pedidos simulados conservan su estado mientras el servidor sigue encendido, por lo que había que reiniciarlo para repetir las pruebas de cancelación, y que el modelo a veces devolvía formato Markdown, lo que corregimos ajustando el prompt de sistema.
-
-Como resultado, el chatbot responde correctamente sobre estatus, rastreo y cancelación, pide el número de pedido cuando falta y redirige las preguntas aleatorias, que no tienen que ver con el tema con la frase definida en la actividad.
+Como resultado, el chatbot responde correctamente sobre estatus, rastreo y cancelación, pide el número de pedido cuando falta y redirige las preguntas fuera de tema con la frase definida en la actividad.
