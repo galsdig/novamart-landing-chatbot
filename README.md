@@ -1,46 +1,48 @@
-# NovaMart: landing page y chatbot con NVIDIA NIM
+# NovaMart: Landing Page and Chatbot with NVIDIA NIM
 
-**Autor:** Diego Galicia Salgado (asignado al Equipo 2; desarrollo e implementación individual)
-**Curso:** I Bootcamp Skala (IA) · Presentación: 30 de septiembre de 2026
+🇪🇸 [Leer en español](README.es.md)
 
-## Objetivo
+**Author:** Diego Galicia Salgado (assigned to Team 2; individual development and implementation)
+**Course:** Skala Bootcamp I (AI) · Presentation: September 30, 2026
 
-Construir una landing page funcional en localhost para la empresa ficticia NovaMart, con un widget de chatbot conectado a un LLM de NVIDIA mediante API/NIM. El chatbot atiende únicamente consultas de pedidos: estado, rastreo y cancelación.
+## Objective
 
-## Tecnologías
+Build a functional landing page on localhost for the fictional company NovaMart, with a chatbot widget connected to an NVIDIA LLM through API/NIM. The chatbot only handles order inquiries: status, tracking and cancellation.
 
-- **Frontend:** HTML, CSS y JavaScript (sin frameworks).
+## Technologies
+
+- **Frontend:** HTML, CSS and JavaScript (no frameworks).
 - **Backend:** Python 3.12 + FastAPI + Uvicorn.
-- **LLM:** `nvidia/nemotron-3-super-120b-a12b`, consumido con el cliente `openai` apuntando al endpoint de NVIDIA.
-- **Configuración:** `python-dotenv` para leer la API Key desde `.env`.
+- **LLM:** `nvidia/nemotron-3-super-120b-a12b`, consumed with the `openai` client pointing to the NVIDIA endpoint.
+- **Configuration:** `python-dotenv` to read the API Key from `.env`.
 
-## Explicación del flujo
+## How the flow works
 
-![Diagrama de flujo](docs/diagrama-flujo.jpg)
+![Flow diagram](docs/diagrama-flujo.jpg)
 
-1. El usuario abre la landing en `http://localhost:8000` y escribe en el widget.
-2. El navegador envía el historial de la conversación a `POST /api/chat`.
-3. El backend agrega el prompt de sistema y llama a NVIDIA NIM, indicándole qué funciones puede usar.
-4. Si el LLM pide una función (`consultar_pedido`, `rastrear_envio`, `validar_cancelacion` o `cancelar_pedido`), el backend la ejecuta con los datos simulados y devuelve el resultado al LLM.
-5. El LLM redacta la respuesta final y el backend la regresa al widget. Si hubo una cancelación, la lista de pedidos se actualiza.
+1. The user opens the landing page at `http://localhost:8000` and types in the widget.
+2. The browser sends the conversation history to `POST /api/chat`.
+3. The backend adds the system prompt and calls NVIDIA NIM, telling it which functions it can use.
+4. If the LLM requests a function (`consultar_pedido`, `rastrear_envio`, `validar_cancelacion` or `cancelar_pedido`), the backend runs it with the simulated data and returns the result to the LLM.
+5. The LLM writes the final answer and the backend returns it to the widget. If an order was cancelled, the order list is updated.
 
-## Qué parte es cada cosa
+## What each part is
 
-| Parte | Dónde está | Qué hace |
+| Part | Where it is | What it does |
 | --- | --- | --- |
-| Landing page | `static/index.html`, `styles.css`, `script.js` | Muestra los pedidos y el widget del chat |
-| Backend local | `app.py` | Guarda los datos simulados, ejecuta las funciones y aplica las reglas |
-| NVIDIA API / NIM | `integrate.api.nvidia.com` | Servicio de inferencia que recibe el texto y ejecuta el modelo |
-| LLM | Nemotron 3 Super 120B | Entiende lo que escribe el usuario y redacta la respuesta |
+| Landing page | `static/index.html`, `styles.css`, `script.js` | Shows the orders and the chat widget |
+| Local backend | `app.py` | Stores the simulated data, runs the functions and applies the rules |
+| NVIDIA API / NIM | `integrate.api.nvidia.com` | Inference service that receives the text and runs the model |
+| LLM | Nemotron 3 Super 120B | Understands what the user writes and writes the reply |
 
-## Cómo limitamos el comportamiento del chatbot
+## How I limit the chatbot's behavior
 
-- **Prompt de sistema** que restringe el tema a pedidos y define la frase exacta para temas fuera de alcance.
-- **Funciones simuladas:** el LLM no inventa estados; consulta los datos del backend.
-- **Seguro en código:** `cancelar_pedido` solo cancela si antes se validó la cancelación de ese pedido y el usuario confirmó. Esto no depende del LLM.
-- **Errores controlados:** si falla la conexión con NVIDIA, el usuario ve un mensaje genérico y el detalle queda solo en la terminal.
+- **System prompt** that restricts the topic to orders and defines the exact phrase for out-of-scope topics.
+- **Simulated functions:** the LLM does not invent statuses; it queries the backend data.
+- **Safeguard in code:** `cancelar_pedido` only cancels if the cancellation of that order was validated first and the user confirmed. This does not depend on the LLM.
+- **Handled errors:** if the connection to NVIDIA fails, the user sees a generic message and the details stay only in the terminal.
 
-## Cómo ejecutar en localhost
+## How to run on localhost
 
 ```bash
 git clone https://github.com/galsdig/novamart-landing-chatbot.git
@@ -48,61 +50,75 @@ cd novamart-landing-chatbot
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env     # luego edita .env con tu API Key
+cp .env.example .env     # then edit .env with your API Key
 uvicorn app:app --reload
 ```
 
-Abre `http://localhost:8000`.
+Open `http://localhost:8000`.
 
-## Cómo configurar la API Key sin exponerla
+## How to configure the API Key without exposing it
 
-1. Genera una clave en [build.nvidia.com](https://build.nvidia.com).
-2. Copia `.env.example` a `.env` y reemplaza `tu_clave_aqui` por tu clave.
-3. `.env` está en `.gitignore`, por lo que **nunca se sube a GitHub**. Solo se versiona `.env.example`, que no tiene credenciales reales.
+1. Generate a key at [build.nvidia.com](https://build.nvidia.com).
+2. Copy `.env.example` to `.env` and replace `tu_clave_aqui` with your key.
+3. `.env` is in `.gitignore`, so it is **never uploaded to GitHub**. Only `.env.example` is versioned, and it contains no real credentials.
 
-## Pruebas realizadas
+## Tests performed
 
-Tabla de rendimiento del chatbot
+Chatbot performance table
 
-| Prueba | Resultado | Observación |
+> The chatbot works in Spanish. The user messages and replies below are translated into English; the original text is in [README.es.md](README.es.md). The screenshots show the Spanish interface. The out-of-scope phrase defined in the code is: *"Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones."*
+
+| Test | Result | Observation |
 | --- | --- | --- |
-| ¿Cuál es el estado de ORD-1001? |✅| El estado del pedido ORD-1001 es **En preparación**. |
-| ¿Dónde está mi pedido ORD-1002? |✅| Su pedido ORD-1002 está **En tránsito** y actualmente se encuentra en el **Centro de distribución Tijuana**. |
-| Quiero cancelar ORD-1004 |✅| El pedido ORD-1004 puede cancelarse. Para proceder, por favor confirma explícitamente que deseas cancelarlo (por ejemplo, diciendo "sí, confirmo"). |
-| Sí, confirmo la cancelación |✅| El pedido ORD-1004 ha sido cancelado exitosamente. Su estado actual es **Cancelado**. |
-| Cancela ORD-1002 |✅| No se puede cancelar el pedido ORD-1002 porque ya fue enviado y está en camino. En este estado, el proceso de envío ya ha iniciado y no es posible detenerlo. Le sugiero que, una vez reciba el pedido, pueda gestionar una devolución si lo desea, siguiendo nuestras políticas de devoluciones. ¿Necesita ayuda con algo más? |
-| Quiero rastrear mi pedido (sin número) |✅| Para poder rastrear tu pedido, necesito el número de orden. ¿Podrías proporcionarme el número de tu pedido (ejemplo: ORD-1001)? |
-| Explícame una receta de pizza |✅| Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
-| Hazme un poema |✅| Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
-| ¿Cuánto es 25 por 18? |✅| Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
-| Dime información sobre política |✅| Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
-| Recomiéndame una película |✅| Solo puedo ayudarte con consultas relacionadas con pedidos de NovaMart, como estatus, rastreo o cancelaciones. |
+| What is the status of ORD-1001? |✅| The status of order ORD-1001 is **In preparation**. |
+| Where is my order ORD-1002? |✅| Your order ORD-1002 is **In transit** and is currently at the **Tijuana distribution center**. |
+| I want to cancel ORD-1004 |✅| Order ORD-1004 can be cancelled. To proceed, please explicitly confirm that you want to cancel it (for example, by saying "yes, I confirm"). |
+| Yes, I confirm the cancellation |✅| Order ORD-1004 has been successfully cancelled. Its current status is **Cancelled**. |
+| Cancel ORD-1002 |✅| Order ORD-1002 cannot be cancelled because it has already shipped and is on its way. In this state, the shipping process has already started and cannot be stopped. I suggest that once you receive the order, you can request a return if you wish, following our return policies. Do you need help with anything else? |
+| I want to track my order (no number) |✅| To track your order, I need the order number. Could you provide your order number (example: ORD-1001)? |
+| Explain a pizza recipe to me |✅| I can only help you with queries related to NovaMart orders, such as status, tracking or cancellations. |
+| Write me a poem |✅| I can only help you with queries related to NovaMart orders, such as status, tracking or cancellations. |
+| How much is 25 times 18? |✅| I can only help you with queries related to NovaMart orders, such as status, tracking or cancellations. |
+| Tell me about politics |✅| I can only help you with queries related to NovaMart orders, such as status, tracking or cancellations. |
+| Recommend a movie to me |✅| I can only help you with queries related to NovaMart orders, such as status, tracking or cancellations. |
 
-## Evidencia del funcionamiento
+## Evidence of operation
 
-### Estado de pedido
-![Consulta del estado de ORD-1001](docs/captura-estado.png)
+### Order status
+![Status query for ORD-1001](docs/captura-estado.png)
 
-### Rastreo
-![Rastreo de ORD-1002](docs/captura-rastreo.png)
+### Tracking
+![Tracking of ORD-1002](docs/captura-rastreo.png)
 
-### Cancelación
-El chatbot valida el pedido, pide confirmación y solo cancela si el usuario confirma.
+### Cancellation
+The chatbot validates the order, asks for confirmation and only cancels if the user confirms.
 
-![El chatbot pide confirmación para cancelar ORD-1004](docs/captura-cancelacion-confirmacion.png)
+![The chatbot asks for confirmation to cancel ORD-1004](docs/captura-cancelacion-confirmacion.png)
 
-![ORD-1004 cancelado y la lista actualizada](docs/captura-cancelacion-hecha.png)
+![ORD-1004 cancelled and the updated list](docs/captura-cancelacion-hecha.png)
 
-### Preguntas fuera de tema
-![El chatbot redirige una pregunta fuera de tema](docs/captura-fuera-de-tema.png)
+### Out-of-scope questions
+![The chatbot redirects an out-of-scope question](docs/captura-fuera-de-tema.png)
 
 
-## Conclusión
+## Conclusion
 
-En este proyecto aprendí a integrar un modelo de lenguaje (LLM) en una aplicación web local usando la API de NVIDIA. Mi backend en FastAPI recibe el mensaje desde el widget, lo envía a la API de NVIDIA NIM junto con el prompt de sistema y las funciones disponibles, y el modelo Nemotron redacta la respuesta final. Usé el servicio alojado de NVIDIA mediante una API Key, por lo que no desplegué ningún contenedor propio.
+In this project I learned to integrate a large language model (LLM) into a local web application using the NVIDIA API. My FastAPI backend receives the message from the widget, sends it to the NVIDIA NIM API together with the system prompt and the available functions, and the Nemotron model writes the final answer. I used NVIDIA's hosted service through an API Key, so I did not deploy any container of my own.
 
-También entendí que el LLM y la aplicación local cumplen funciones distintas. El LLM interpreta el lenguaje del usuario y redacta las respuestas, mientras que la aplicación guarda los datos de los pedidos y aplica las reglas. Para limitar el comportamiento del chatbot combiné un prompt de sistema con funciones simuladas (consultar, rastrear, validar y cancelar) y una validación en el código: un pedido solo se cancela si antes se validó y el usuario lo confirmó. Como el modelo no recuerda la conversación por sí solo, el navegador reenvía el historial en cada petición.
+I also understood that the LLM and the local application serve different functions. The LLM interprets the user's language and writes the replies, while the application stores the order data and applies the rules. To limit the chatbot's behavior I combined a system prompt with simulated functions (query, track, validate and cancel) and a validation in the code: an order is only cancelled if it was validated beforehand and the user confirmed it. Since the model does not remember the conversation on its own, the browser resends the history with each request.
 
-Entre las dificultades que encontré estuvieron la configuración de la API Key en el archivo `.env` sin exponerla en GitHub, activar el entorno virtual para que el servidor encendiera y diferenciar el entorno de Linux (Ubuntu en WSL) del sistema de archivos de Windows. También noté que los pedidos simulados conservan su estado mientras el servidor sigue encendido, por lo que tenía que reiniciarlo para repetir las pruebas de cancelación, y que el modelo a veces devolvía formato Markdown, lo cual corregí ajustando el prompt de sistema.
+Among the difficulties I encountered were configuring the API Key in the `.env` file without exposing it on GitHub, activating the virtual environment so the server would start, and telling the Linux environment (Ubuntu on WSL) apart from the Windows file system. I also noticed that the simulated orders keep their state while the server stays on, so I had to restart it to repeat the cancellation tests, and that the model sometimes returned Markdown formatting, which I fixed by adjusting the system prompt.
 
-Como resultado, el chatbot responde correctamente sobre estatus, rastreo y cancelación, pide el número de pedido cuando falta y redirige las preguntas fuera de tema con la frase definida en la actividad.
+As a result, the chatbot answers correctly about status, tracking and cancellation, asks for the order number when it is missing, and redirects out-of-scope questions with the phrase defined in the activity.
+
+## AI-assisted development
+
+I used an AI assistant (Claude, by Anthropic) as a support tool during this project: to review and improve the documentation, to structure this bilingual README, and to guide me through the Git/WSL workflow and the repository checks before publishing. I designed the solution, implemented and tested the chatbot, and validated the results myself.
+
+## Author
+
+**Diego Galicia Salgado** · [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/dgsalgado/)
+
+## License
+
+MIT (see [`LICENSE`](LICENSE)).
